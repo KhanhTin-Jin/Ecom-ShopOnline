@@ -1,0 +1,7 @@
+@Ecom.Api_HostAddress = https://localhost:7188
+@AccessToken = X6qUSkSjhOa7M6idISC+//XhtwvqCP7w+xJEV3UUxfNhDTtXjURDNQe48bSQFD7E1k1hU7ALAAnOgJ6zY5dV9A==
+
+GET {{Ecom.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+Authorization: Bearer {{AccessToken}}
+###

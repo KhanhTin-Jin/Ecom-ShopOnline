@@ -1,0 +1,40 @@
+### Auth API Testing
+
+@baseUrl = https://localhost:7188
+@email = test@example.com
+@password = Test1234!
+
+### 1. Register new user
+POST {{baseUrl}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "fullName": "Test User"
+}
+
+### 2. Login
+# @name login
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Extract token from login response
+@accessToken = {{login.response.body.accessToken}}
+
+### 3. Get current user info
+GET {{baseUrl}}/api/v1/auth/me
+Authorization: Bearer {{accessToken}}
+
+### 4. Logout
+POST {{baseUrl}}/api/v1/auth/logout
+Authorization: Bearer {{accessToken}}
+
+### 5. Try to access protected endpoint after logout (should fail)
+GET {{baseUrl}}/api/v1/auth/me
+Authorization: Bearer {{accessToken}}
