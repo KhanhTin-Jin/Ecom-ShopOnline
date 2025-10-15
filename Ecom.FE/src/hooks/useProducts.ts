@@ -19,19 +19,6 @@ interface ProductQueryParams {
   search?: string
 }
 
-interface CreateProductDto {
-  name: string
-  description: string
-  price: number
-  imageUrl: string
-  stock?: number
-  category?: string
-}
-
-interface UpdateProductDto extends Partial<CreateProductDto> {
-  id: string
-}
-
 // Query hook for listing products with pagination
 export function useProducts(params?: ProductQueryParams) {
   return useQuery({
