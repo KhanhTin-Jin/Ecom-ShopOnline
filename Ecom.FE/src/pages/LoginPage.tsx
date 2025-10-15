@@ -10,6 +10,10 @@ export default function LoginPage() {
 
   // Trang đích trước khi bị chặn
   const from = (location.state as any)?.from?.pathname || '/products'
+  
+  // Get success message from registration if any
+  const successMessage = (location.state as any)?.message
+  const messageType = (location.state as any)?.type
 
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
@@ -67,6 +71,11 @@ export default function LoginPage() {
           {/* Login Card */}
           <div className="bg-white/70 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
             <form onSubmit={handleSubmit} className="space-y-5">
+              {successMessage && messageType === 'success' && (
+                <div className="bg-green-50/90 backdrop-blur-sm border border-green-200 text-green-700 px-4 py-3 rounded-2xl">
+                  <p className="text-sm">✅ {successMessage}</p>
+                </div>
+              )}
               {error && (
                 <div className="bg-red-50/90 backdrop-blur-sm border border-red-200 text-red-700 px-4 py-3 rounded-2xl">
                   <p className="text-sm">⚠️ {error}</p>

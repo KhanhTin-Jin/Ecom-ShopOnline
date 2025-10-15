@@ -48,7 +48,13 @@ export default function RegisterPage() {
 
     try {
       await signup(formData.email, formData.password, formData.name)
-      navigate('/products') // Redirect to products page after signup
+      // Redirect to login page with success message
+      navigate('/login', { 
+        state: { 
+          message: 'Account created successfully! Please login with your credentials.',
+          type: 'success'
+        } 
+      })
     } catch (err: any) {
       setError(err.message || 'Failed to create account. Please try again.')
     } finally {
