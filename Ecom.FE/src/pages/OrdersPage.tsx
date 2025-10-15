@@ -59,7 +59,7 @@ export default function OrdersPage() {
               <h2 className="text-2xl font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent mb-2">
                 Failed to load orders
               </h2>
-              <p className="text-gray-600">{error.message}</p>
+              <p className="text-gray-600">{(error as any)?.message ?? 'Unknown error'}</p>
             </div>
           </div>
         </div>
@@ -68,8 +68,8 @@ export default function OrdersPage() {
   }
 
   const filteredOrders = statusFilter === 'all' 
-    ? orders || []
-    : orders?.filter(order => order.status === statusFilter) || []
+    ? (orders || [])
+    : (orders?.filter(order => order.status === statusFilter) || [])
 
   const getStatusColor = (status: OrderStatus) => {
     switch (status) {
@@ -77,8 +77,9 @@ export default function OrdersPage() {
         return 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white'
       case 'paid':
         return 'bg-gradient-to-r from-green-400 to-emerald-500 text-white'
-      case 'failed':
-        return 'bg-gradient-to-r from-red-400 to-pink-500 text-white'
+      // case 'failed':
+      //   // ❗ Tạm ẩn trạng thái failed; bật lại khi cần
+      //   return 'bg-gradient-to-r from-red-400 to-pink-500 text-white'
       default:
         return 'bg-gradient-to-r from-gray-400 to-gray-500 text-white'
     }
@@ -113,9 +114,14 @@ export default function OrdersPage() {
           <p className="text-gray-600 text-lg">Track and manage your purchases</p>
         </div>
 
-        {/* Filter Tabs */}
+        {/* Filter Tabs (đã ẩn 'failed') */}
         <div className="mb-8 flex flex-wrap gap-3">
-          {['all', 'pending', 'paid', 'failed'].map((status) => (
+          {[
+            'all',
+            'pending',
+            'paid',
+            // 'failed', // ❗ Tạm ẩn tab Failed; bật lại khi cần
+          ].map((status) => (
             <button
               key={status}
               onClick={() => setStatusFilter(status as OrderStatus | 'all')}
@@ -130,7 +136,7 @@ export default function OrdersPage() {
               {status === 'all' && '🔍 '}
               {status === 'pending' && '⏳ '}
               {status === 'paid' && '✅ '}
-              {status === 'failed' && '❌ '}
+              {/* {status === 'failed' && '❌ '} */}
               {status}
             </button>
           ))}
