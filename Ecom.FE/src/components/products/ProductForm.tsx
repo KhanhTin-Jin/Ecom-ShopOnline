@@ -41,8 +41,11 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
       newErrors.description = 'Description is required';
     }
 
-    if (!formData.price || parseFloat(formData.price) <= 0) {
+    const price = parseFloat(formData.price);
+    if (!formData.price || price <= 0) {
       newErrors.price = 'Price must be greater than 0';
+    } else if (price < 15000) {
+      newErrors.price = 'Price must be at least 15,000 VND (Stripe payment requirement)';
     }
 
     if (formData.imageUrl && !/^https?:\/\/.+/.test(formData.imageUrl)) {
@@ -110,17 +113,20 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
         )}
       </div>
 
-      <Input
-        label="Price (VND)"
-        name="price"
-        type="number"
-        step="0.01"
-        value={formData.price}
-        onChange={(e) => handleChange('price', e.target.value)}
-        error={errors.price}
-        required
-        disabled={isLoading}
-      />
+      <div>
+        <Input
+          label="Price (VND)"
+          name="price"
+          type="number"
+          step="0.01"
+          value={formData.price}
+          onChange={(e) => handleChange('price', e.target.value)}
+          error={errors.price}
+          required
+          disabled={isLoading}
+        />
+        <p className="text-xs text-gray-500 mt-1">Minimum price: 15,000 VND (Stripe payment requirement)</p>
+      </div>
 
       <Input
         label="Image URL"
