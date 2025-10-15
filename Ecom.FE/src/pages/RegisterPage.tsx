@@ -150,7 +150,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* Terms and Conditions */}
+            {/* Terms and Conditions - temporarily disabled */}
+            {/*
             <div className="flex items-start">
               <input
                 type="checkbox"
@@ -169,6 +170,7 @@ export default function RegisterPage() {
                 </Link>
               </label>
             </div>
+            */}
 
             {/* Submit Button */}
             <button
