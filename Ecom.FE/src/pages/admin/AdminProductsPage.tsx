@@ -39,6 +39,13 @@ export default function AdminProductsPage() {
   }
 
   const handleDelete = async (id: string) => {
+    // Show confirmation dialog
+    const confirmed = window.confirm('Are you sure you want to delete this product? This action cannot be undone.')
+    
+    if (!confirmed) {
+      return
+    }
+
     setDeletingId(id)
     try {
       await deleteProduct.mutateAsync(id)
